@@ -14,9 +14,8 @@ generator flavoured_ids {
 }
 
 generator fabbrica {
-  provider    = "prisma-fabbrica"
-  output      = "../src/@generated/fabbrica"
-  noTranspile = true
+  provider = "prisma-fabbrica"
+  output   = "../src/@generated/fabbrica"
 }
 
 generator zod {

@@ -3,6 +3,7 @@ import { APP_PIPE } from '@nestjs/core'
 import { ZodValidationPipe } from 'nestjs-zod'
 import { AppConfigModule } from './config/config.module'
 import { PrismaModule } from './database/prisma.module'
+import { ExampleModule } from './example/example.module'
 import { GraphqlModule } from './graphql/graphql.module'
 
 @Module({
@@ -12,6 +13,6 @@ import { GraphqlModule } from './graphql/graphql.module'
       useClass: ZodValidationPipe,
     },
   ],
-  imports: [PrismaModule, GraphqlModule, AppConfigModule],
+  imports: [AppConfigModule, PrismaModule, GraphqlModule, ExampleModule],
 })
 export class AppModule {}
