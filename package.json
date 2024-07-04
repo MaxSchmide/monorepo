@@ -2,10 +2,13 @@
   "name": "monorepo",
   "private": true,
   "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev",
-    "lint": "turbo lint",
-    "bump": "bunx npm-check-updates -u --deep -p bun -x eslint && bun i && bun update"
+    "build": "turbo run build",
+    "start:dev": "turbo run start:dev",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "biome:lint": "bun biome lint apps && bun biome lint packages",
+    "bump": "bunx npm-check-updates -u --deep -p bun -x eslint && bun i && bun update",
+    "prepare": "husky"
   },
   "dependencies": {
     "lodash": "4.17.21",
