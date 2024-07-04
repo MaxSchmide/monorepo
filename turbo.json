@@ -1,0 +1,23 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "stream",
+  "tasks": {
+    "ci:build:production": {
+      "dependsOn": ["^build"]
+    },
+    "ci:build:staging": {
+      "dependsOn": ["^build"]
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "lint": {},
+    "test": {},
+    "start:dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "db:start:docker": {}
+  }
+}
