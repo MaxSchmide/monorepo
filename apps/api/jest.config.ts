@@ -9,7 +9,7 @@ const config: Config = {
     '#node-web-compat': './node-web-compat-node.js',
   },
   rootDir: 'src',
-  testRegex: '^(?!.*\.u\.spec\.ts$).*\.spec\.ts$',
+  testRegex: '^(?!.*.u.spec.ts$).*.spec.ts$',
   transform: {
     '^.+\\.(t|j)s$': 'ts-jest',
   },
@@ -21,7 +21,7 @@ const config: Config = {
   testPathIgnorePatterns: ['node_modules/', 'dist/'],
   testEnvironmentOptions: {
     databaseUrl:
-      'postgresql://postgres:sfs@localhost:5432/postgres?schema=public&connection_limit=25',
+      'postgresql://postgres:db_password@localhost:5432/postgres?schema=public&connection_limit=25',
   },
 }
 
