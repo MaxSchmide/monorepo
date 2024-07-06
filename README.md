@@ -30,7 +30,7 @@ bun turbo db:start:docker
 
 ## Development
 
-Once "First time setup" is done, you can start the development environment with:
+Once "Getting Started" is done, you can start the development environment with:
 
 ```
 bun turbo start:dev
