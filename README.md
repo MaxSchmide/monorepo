@@ -18,7 +18,7 @@ bun i
 
 2. Set your db name and password in `apps/api/bin/db-start-docker.sh` files instead of `db_name` and `db_password`
 
-3. Create .env files in `app/web` and `app/api` folders based on `env.example` files
+3. Create .env files in `apps/web` and `apps/api` folders based on `env.example` files
 
 4. Start Docker
 
@@ -30,7 +30,7 @@ bun turbo db:start:docker
 
 ## Development
 
-Once "First time setup" is done, you can start the development environment with:
+Once "Getting Started" is done, you can start the development environment with:
 
 ```
 bun turbo start:dev
