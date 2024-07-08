@@ -18,11 +18,13 @@ bun i
 
 2. Set your db name and password in `apps/api/bin/db-start-docker.sh` files instead of `db_name` and `db_password`
 
-3. Create .env files in `apps/web` and `apps/api` folders based on `env.example` files
+3. Change `databaseUrl` to corresponding in `apps/api/jest.config.ts`
 
-4. Start Docker
+4. Create .env files in `apps/web` and `apps/api` folders based on `env.example` files
 
-5. Start the database:
+5. Start Docker
+
+6. Start the database:
 
 ```
 bun turbo db:start:docker
