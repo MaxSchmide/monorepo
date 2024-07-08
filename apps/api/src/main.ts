@@ -20,10 +20,7 @@ async function bootstrap() {
   const allowedOrigins = [appConfig.webUrl]
 
   if (isDevelopment || appConfig.env === 'staging') {
-    allowedOrigins.push(
-      'http://localhost:3000',
-      'https://studio.apollographql.com',
-    )
+    allowedOrigins.push('https://studio.apollographql.com')
   }
 
   app.enableCors({

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { PropsWithChildren } from 'react'
+import { ApolloWrapper } from '../context/ApolloWrapper'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -9,8 +10,10 @@ export const metadata: Metadata = {
 
 const RootLayout: React.FC<Readonly<PropsWithChildren>> = ({ children }) => {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang={'en'}>
+      <body>
+        <ApolloWrapper>{children}</ApolloWrapper>
+      </body>
     </html>
   )
 }
