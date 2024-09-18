@@ -12,14 +12,14 @@
     "lint:old": "bun tsc && next lint && biome format ./src"
   },
   "dependencies": {
-    "@apollo/client": "3.11.4",
+    "@apollo/client": "3.11.8",
     "@radix-ui/react-slot": "1.1.0",
     "class-variance-authority": "0.7.0",
     "clsx": "2.1.1",
-    "gql.tada": "1.8.6",
-    "lucide-react": "0.436.0",
-    "next": "14.2.6",
-    "nuqs": "1.17.8",
+    "gql.tada": "1.8.7",
+    "lucide-react": "0.441.0",
+    "next": "14.2.12",
+    "nuqs": "1.19.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "sharp": "0.33.5",
@@ -29,14 +29,14 @@
   },
   "devDependencies": {
     "@graphql-eslint/eslint-plugin": "3.20.1",
-    "@next/eslint-plugin-next": "14.2.6",
-    "@types/react": "18.3.4",
+    "@next/eslint-plugin-next": "14.2.12",
+    "@types/react": "18.3.7",
     "@types/react-dom": "18.3.0",
     "autoprefixer": "10.4.20",
     "env-cmd": "10.1.0",
     "eslint-config-airbnb-typescript": "18.0.0",
-    "eslint-config-next": "14.2.6",
-    "postcss": "8.4.41",
-    "tailwindcss": "3.4.10"
+    "eslint-config-next": "14.2.12",
+    "postcss": "8.4.47",
+    "tailwindcss": "3.4.12"
   }
 }

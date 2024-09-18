@@ -21,7 +21,8 @@
     "ignore": ["node_modules/*", "dist/*", ".next/*"]
   },
   "formatter": {
-    "formatWithErrors": true
+    "formatWithErrors": true,
+    "indentStyle": "space"
   },
   "javascript": {
     "parser": {
