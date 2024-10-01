@@ -40,5 +40,5 @@ jobs:
       - name: Create Pull Request
         run: gh pr create -H chore/bump -B ${{ github.event.inputs.base_branch }} --title 'Bump' --body 'Weekly bump dependencies' --label 'dependencies'
         env:
-          GITHUB_TOKEN: ${{ secrets.BUMP_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
