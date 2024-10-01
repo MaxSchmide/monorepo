@@ -40,6 +40,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
+          token: ${{ secrets.BUMP_TOKEN }}
           title: "bump dependencies"
           body: "This PR updates all dependencies."
           labels: "dependencies"
