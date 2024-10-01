@@ -38,7 +38,7 @@ jobs:
           git push origin chore/bump --force
 
       - name: Create Pull Request
-        run: gh pr create -B chore/bump -H ${{ github.event.inputs.base_branch }} -t 'Bump dependencies' -l 'dependencies'
+        run: gh pr create -B chore/bump -H ${{ github.event.inputs.base_branch }} --title 'Bump' --body 'Weekly bump dependencies' --label 'dependencies'
         env:
           GITHUB_TOKEN: ${{ secrets.BUMP_TOKEN }}
 
