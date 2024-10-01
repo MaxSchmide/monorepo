@@ -36,6 +36,7 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           branch: chore/bump
+          base: main
           title: "bump dependencies"
           body: "This PR updates all dependencies."
           labels: "dependencies"
