@@ -1,7 +1,7 @@
 version: 2
 updates:
   - package-ecosystem: "npm"
-    directory: "/apps/"
+    directory: "/apps/*"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 10
@@ -9,7 +9,7 @@ updates:
       prefix: "chore(deps)"
 
   - package-ecosystem: "npm"
-    directory: "/packages/"
+    directory: "/packages/*"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 10
