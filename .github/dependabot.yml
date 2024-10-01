@@ -1,33 +1,44 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
-# Please see the documentation for all configuration options:
-# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
 
-name: 'Dependabot: Update bun.lockb'
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    ignore:
+      - dependency-name: "*"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "chore(deps)"
+    # Custom command to run the bump script at the root level for all packages
+    update-config:
+      - run: "bun bump"
 
-on:
-  pull_request:
-    paths:
-      - "package.json"
+  # Generic configuration for all package.json files in apps and packages directories
+  - package-ecosystem: "npm"
+    directory: "/apps/"
+    schedule:
+      interval: "weekly"
+    ignore:
+      - dependency-name: "*"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "chore(deps)"
+    update-config:
+      - run: "bun bump"
 
-permissions:
-  contents: write
-
-jobs:
-  update-bun-lockb:
-    name: "bump"
-    if: github.actor == 'dependabot[bot]'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: oven-sh/setup-bun@v1
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          ref: ${{ github.event.pull_request.head.ref }}
-      - run: |
-          bun bump
-          git add .
-          git config --global user.name 'dependabot[bot]'
-          git config --global user.email 'dependabot[bot]@users.noreply.github.com'
-          git commit --amend --no-edit 
-          git push --force
+  - package-ecosystem: "npm"
+    directory: "/packages/"
+    schedule:
+      interval: "weekly"
+    ignore:
+      - dependency-name: "*"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "chore(deps)"
+    update-config:
+      - run: "bun bump"
