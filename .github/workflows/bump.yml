@@ -34,14 +34,14 @@ jobs:
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b chore/bump || git checkout chore/bump
           git add .
-          git commit -m "bump"
-          git push origin chore/bump
+          git commit -m "bump" || echo "No changes to commit"
+          git push origin chore/bump --force
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
-          branch: chore/bump
           title: "bump dependencies"
           body: "This PR updates all dependencies."
           labels: "dependencies"
-          base: main
+          head: chore/bump
+          base: ${{ github.event.inputs.base_branch }}
