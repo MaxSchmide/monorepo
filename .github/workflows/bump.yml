@@ -3,7 +3,7 @@ name: Bump Dependencies
 on:
   schedule:
     - cron: '0 9 * * 3'
-  workflow_dispatch:  # Allows manual triggering of the workflow
+  workflow_dispatch:
 
 jobs:
   bump:
@@ -17,8 +17,8 @@ jobs:
           curl https://bun.sh/install | bash
           export BUN_INSTALL="$HOME/.bun"
           export PATH="$BUN_INSTALL/bin:$PATH"
+          echo "$BUN_INSTALL/bin" >> $GITHUB_PATH
           bun --version
-
       - name: Run Bun bump
         run: |
           bun bump
