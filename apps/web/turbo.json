@@ -10,11 +10,11 @@
     "ci:build:staging": {
       "dependsOn": ["api#graphql:generate:schema"]
     },
-    "lint": {
-      "dependsOn": ["api#graphql:generate:schema"]
-    },
     "graphql:generate:schema": {
       "dependsOn": ["api#graphql:generate:schema"]
+    },
+    "lint": {
+      "dependsOn": ["graphql:generate:schema"]
     }
   }
 }
