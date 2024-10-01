@@ -1,11 +1,9 @@
-name: Bump
+name: Bump Dependencies
 
 on:
-  pull_request:
-    types:
-      - opened
-    branches:
-      - main
+  schedule:
+    - cron: '0 9 * * 3'
+  workflow_dispatch:  # Allows manual triggering of the workflow
 
 jobs:
   bump:
@@ -19,12 +17,25 @@ jobs:
           curl https://bun.sh/install | bash
           export BUN_INSTALL="$HOME/.bun"
           export PATH="$BUN_INSTALL/bin:$PATH"
+          bun --version
 
       - name: Run Bun bump
         run: |
           bun bump
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b bump-dependencies || git checkout bump-dependencies
           git add .
-          git commit -m "chore: bump dependencies with Bun"
-          git push
+          git commit -m "bump"
+          git push origin bump-dependencies
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          branch: bump
+          title: "bump dependencies"
+          body: "This PR updates all dependencies."
+          labels: "dependencies"
