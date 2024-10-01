@@ -38,12 +38,5 @@ jobs:
           git push origin chore/bump --force
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7
-        with:
-          token: ${{ secrets.BUMP_TOKEN }}
-          title: "bump dependencies"
-          body: "This PR updates all dependencies."
-          labels: "dependencies"
-          branch: chore/bump
-          base: ${{ github.event.inputs.base_branch }}
+        run: gh pr create -B chore/bump -H ${{ github.event.inputs.base_branch }} -t 'Bump dependencies' -l 'dependencies'
 
