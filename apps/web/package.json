@@ -6,6 +6,7 @@
     "start:dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "graphql:generate:schema": "bunx gql.tada generate output",
     "ci:build:production": "pnpm env-cmd -f .env.production pnpm build",
     "ci:build:staging": "pnpm env-cmd -f .env.staging pnpm build",
     "lint": "bun tsc && biome format ./src",

@@ -12,6 +12,9 @@
     },
     "lint": {
       "dependsOn": ["api#graphql:generate:schema"]
+    },
+    "graphql:generate:schema": {
+      "dependsOn": ["api#graphql:generate:schema"]
     }
   }
 }
