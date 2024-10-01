@@ -30,7 +30,7 @@ jobs:
           git checkout -b bump-dependencies || git checkout bump-dependencies
           git add .
           git commit -m "bump"
-          git push origin bump-dependencies
+          git push origin bump
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
