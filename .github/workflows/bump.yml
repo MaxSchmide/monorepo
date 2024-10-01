@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: '0 9 * * 3'
   workflow_dispatch:
+    inputs:
+      base_branch:
+        description: 'Base branch for the pull request'
+        required: true
+        default: 'main'
 
 jobs:
   bump:
@@ -36,7 +41,7 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           branch: chore/bump
-          base: main
           title: "bump dependencies"
           body: "This PR updates all dependencies."
           labels: "dependencies"
+          base: main
