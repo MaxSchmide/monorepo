@@ -1,44 +1,17 @@
 version: 2
 updates:
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    ignore:
-      - dependency-name: "*"
-    open-pull-requests-limit: 10
-    commit-message:
-      prefix: "chore(deps)"
-    # Custom command to run the bump script at the root level for all packages
-    update-config:
-      - run: "bun bump"
-
-  # Generic configuration for all package.json files in apps and packages directories
   - package-ecosystem: "npm"
     directory: "/apps/"
     schedule:
       interval: "weekly"
-    ignore:
-      - dependency-name: "*"
     open-pull-requests-limit: 10
     commit-message:
       prefix: "chore(deps)"
-    update-config:
-      - run: "bun bump"
 
   - package-ecosystem: "npm"
     directory: "/packages/"
     schedule:
       interval: "weekly"
-    ignore:
-      - dependency-name: "*"
     open-pull-requests-limit: 10
     commit-message:
       prefix: "chore(deps)"
-    update-config:
-      - run: "bun bump"
