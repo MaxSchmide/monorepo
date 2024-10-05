@@ -1,6 +1,9 @@
 name: Lint and Test
 
 on:
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       db_name:
@@ -9,9 +12,6 @@ on:
       db_password:
         required: true
         default: db_password
-  pull_request:
-    branches:
-      - main
 
 jobs:
   lint_and_test:
@@ -55,4 +55,4 @@ jobs:
       - name: Run tests
         env:
           DATABASE_URL: ${{ env.DATABASE_URL }}
-        run: игт run test
+        run: bun run test
