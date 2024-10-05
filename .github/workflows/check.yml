@@ -54,5 +54,5 @@ jobs:
         env:
           DATABASE_URL: 'postgresql://postgres:db_password@localhost:5432/postgres?schema=public'
         run: |
-          cp .env.example .env
+          cp apps/api/.env.example apps/api/.env
           bun run test
