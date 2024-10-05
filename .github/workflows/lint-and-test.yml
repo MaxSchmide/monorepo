@@ -43,5 +43,5 @@ jobs:
 
       - name: Run tests
         env:
-          DATABASE_URL: ${{ env.DATABASE_URL }}
+          DATABASE_URL: 'postgresql://postgres:db_password@localhost:5432/postgres?schema=public'
         run: bun run test
