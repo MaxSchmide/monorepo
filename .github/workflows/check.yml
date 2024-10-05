@@ -1,6 +1,8 @@
 name: Lint and Test
 
 on:
+  repository_dispatch:
+    types: [create-pull-request]
   pull_request:
     branches:
       - main
@@ -24,8 +26,16 @@ jobs:
           POSTGRES_DB: ${{ github.event.inputs.db_name }}
         options: --health-cmd "pg_isready -U postgres" --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Set up Bun
+        run: |
+          curl https://bun.sh/install | bash
+          export BUN_INSTALL="$HOME/.bun"
+          export PATH="$BUN_INSTALL/bin:$PATH"
+          echo "$BUN_INSTALL/bin" >> $GITHUB_PATH
+          bun --version
 
       - name: Extract Node.js version from package.json
         id: node-version
