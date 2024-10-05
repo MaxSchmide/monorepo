@@ -53,4 +53,6 @@ jobs:
       - name: Run tests
         env:
           DATABASE_URL: 'postgresql://postgres:db_password@localhost:5432/postgres?schema=public'
-        run: bun run test
+        run: |
+          cp .env.example .env
+          bun run test
