@@ -48,7 +48,7 @@ jobs:
         run: bun i
 
       - name: Run linter
-        run: bun biome:format && bun run lint
+        run: bun biome:lint && bun run lint
 
       - name: Run tests
         env:
