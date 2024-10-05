@@ -23,8 +23,8 @@ jobs:
           - 5432:5432
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: ${{ github.event.inputs.db_password }}
-          POSTGRES_DB: ${{ github.event.inputs.db_name }}
+          POSTGRES_PASSWORD: ${{ github.event.inputs.db_password || 'db_password' }}
+          POSTGRES_DB: ${{ github.event.inputs.db_name || 'db_name' }}
         options: > 
           --health-cmd "pg_isready -U postgres" 
           --health-interval 10s 
@@ -47,10 +47,7 @@ jobs:
         run: bun i
 
       - name: Run linter
-        run: bun run lint
-
-      - name: Wait for Postgres to be ready
-        run: dockerize -wait tcp://localhost:5432 -timeout 60s
+        run: bun biome:format && bun run lint
 
       - name: Run tests
         env:
