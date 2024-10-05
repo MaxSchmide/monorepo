@@ -4,15 +4,6 @@ on:
   pull_request:
     branches:
       - main
-    types: [opened, synchronize]
-  workflow_dispatch:
-    inputs:
-      db_name:
-        required: true
-        default: db_name
-      db_password:
-        required: true
-        default: db_password
 
 jobs:
   lint_and_test:
@@ -24,8 +15,8 @@ jobs:
           - 5432:5432
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: ${{ github.event.inputs.db_password || 'db_password' }}
-          POSTGRES_DB: ${{ github.event.inputs.db_name || 'db_name' }}
+          POSTGRES_PASSWORD: 'db_password'
+          POSTGRES_DB: 'db_name'
         options: > 
           --health-cmd "pg_isready -U postgres" 
           --health-interval 10s 
