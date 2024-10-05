@@ -44,6 +44,8 @@ jobs:
         run: gh pr create -H chore/bump -B ${{ github.event.inputs.base_branch }} --title 'Bump' --body 'Weekly bump dependencies' --label 'dependencies'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Run lint and test
+      - name: Run Lint and Test workflow
         run: gh workflow run 'check.yml' --ref 'chore/bump'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
