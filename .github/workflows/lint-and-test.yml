@@ -1,0 +1,58 @@
+name: Lint and Test
+
+on:
+  workflow_dispatch:
+    inputs:
+      db_name:
+        required: true
+        default: db_name
+      db_password:
+        required: true
+        default: db_password
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint_and_test:
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres:16.1
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ${{ github.event.inputs.db_password }}
+          POSTGRES_DB: ${{ github.event.inputs.db_name }}
+        options: > 
+          --health-cmd "pg_isready -U postgres" 
+          --health-interval 10s 
+          --health-timeout 5s 
+          --health-retries 5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Extract Node.js version from package.json
+        id: node-version
+        run: echo "NODE_VERSION=$(jq -r .engines.node package.json)" >> $GITHUB_ENV
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: bun i
+
+      - name: Run linter
+        run: bun run lint
+
+      - name: Wait for Postgres to be ready
+        run: dockerize -wait tcp://localhost:5432 -timeout 60s
+
+      - name: Run tests
+        env:
+          DATABASE_URL: ${{ env.DATABASE_URL }}
+        run: игт run test
