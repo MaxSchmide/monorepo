@@ -25,7 +25,7 @@
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-promise": "7.1.0",
     "jest": "29.7.0",
-    "knip": "5.36.2",
+    "knip": "5.36.3",
     "ts-jest": "29.2.5",
     "ts-node": "10.9.2",
     "turbo": "2.2.3",
