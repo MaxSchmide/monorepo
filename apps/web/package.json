@@ -9,35 +9,31 @@
     "graphql:generate:schema": "bunx gql.tada generate output",
     "ci:build:production": "pnpm env-cmd -f .env.production pnpm build",
     "ci:build:staging": "pnpm env-cmd -f .env.staging pnpm build",
-    "lint": "bun tsc && biome format ./src",
-    "lint:old": "bun tsc && next lint && biome format ./src"
+    "lint": "bun tsc && next lint && biome format ./src"
   },
   "dependencies": {
-    "@apollo/client": "3.11.8",
+    "@apollo/client": "3.11.10",
     "@radix-ui/react-slot": "1.1.0",
     "class-variance-authority": "0.7.0",
     "clsx": "2.1.1",
-    "gql.tada": "1.8.9",
-    "lucide-react": "0.446.0",
-    "next": "14.2.14",
-    "nuqs": "1.19.3",
+    "gql.tada": "1.8.10",
+    "lucide-react": "0.456.0",
+    "next": "15.0.3",
+    "nuqs": "2.2.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "sharp": "0.33.5",
-    "tailwind-merge": "2.5.2",
+    "tailwind-merge": "2.5.4",
     "tailwindcss-animate": "1.0.7",
     "zod": "3.23.8"
   },
   "devDependencies": {
-    "@graphql-eslint/eslint-plugin": "3.20.1",
-    "@next/eslint-plugin-next": "14.2.14",
-    "@types/react": "18.3.10",
-    "@types/react-dom": "18.3.0",
+    "@monorepo/eslint-config": "workspace:*",
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
     "autoprefixer": "10.4.20",
     "env-cmd": "10.1.0",
-    "eslint-config-airbnb-typescript": "18.0.0",
-    "eslint-config-next": "14.2.14",
-    "postcss": "8.4.47",
-    "tailwindcss": "3.4.13"
+    "postcss": "8.4.49",
+    "tailwindcss": "3.4.14"
   }
 }

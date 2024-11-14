@@ -36,4 +36,4 @@ async function generateSchema() {
   const schema = await gqlSchemaFactory.create(resolvers)
   writeFileSync('schema.gql', printSchema(schema))
 }
-generateSchema()
+generateSchema().catch((e: unknown) => console.error(e))

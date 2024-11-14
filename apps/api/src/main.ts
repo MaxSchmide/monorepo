@@ -31,4 +31,4 @@ async function bootstrap() {
   await app.listen(appConfig.port)
 }
 
-bootstrap()
+bootstrap().catch((e: unknown) => console.error(e))
