@@ -7,7 +7,8 @@
     "lint": "turbo run lint",
     "test": "turbo run test",
     "biome:lint": "bun biome lint apps && bun biome lint packages",
-    "bump": "bunx npm-check-updates -u --deep -p bun && bun i && bun update"
+    "bump": "bunx npm-check-updates -u --deep -p bun && bun i && bun update",
+    "release": "git tag $(date +%F) --force && git push origin --tags --force"
   },
   "dependencies": {
     "lodash": "4.17.21",
