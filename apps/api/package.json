@@ -47,7 +47,7 @@
     "@nestjs/testing": "10.4.15",
     "@quramy/jest-prisma-node": "1.8.1",
     "@quramy/prisma-fabbrica": "2.2.2",
-    "prisma-generator-flavoured-ids": "1.1.0",
+    "prisma-generator-flavoured-ids": "2.0.0",
     "@types/multer": "1.4.12",
     "@types/nodemailer": "6.4.17",
     "nestjs-zod-prisma": "3.0.1",
