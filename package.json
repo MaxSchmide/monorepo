@@ -15,10 +15,10 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@types/bun": "1.2.1",
+    "@types/bun": "1.2.2",
     "@types/jest": "29.5.14",
     "@types/lodash": "4.17.15",
-    "@types/node": "22.12.0",
+    "@types/node": "22.13.1",
     "@types/uuid": "10.0.0",
     "eslint": "9.19.0",
     "eslint-plugin-deprecation": "3.0.0",
@@ -28,14 +28,14 @@
     "knip": "5.43.6",
     "ts-jest": "29.2.5",
     "ts-node": "10.9.2",
-    "turbo": "2.3.4",
+    "turbo": "2.4.0",
     "typescript": "5.7.3",
-    "typescript-eslint": "8.22.0"
+    "typescript-eslint": "8.23.0"
   },
   "engines": {
     "node": "22.10.0"
   },
-  "packageManager": "bun@1.2.1",
+  "packageManager": "bun@1.2.2",
   "workspaces": [
     "apps/*",
     "packages/*"
