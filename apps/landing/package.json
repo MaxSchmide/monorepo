@@ -11,8 +11,8 @@
   "dependencies": {
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
-    "lucide-react": "0.474.0",
-    "next": "15.1.6",
+    "lucide-react": "0.475.0",
+    "next": "15.1.7",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "tailwind-merge": "3.0.1",
@@ -22,8 +22,8 @@
     "@monorepo/eslint-config": "workspace:*",
     "@types/react": "19.0.8",
     "@types/react-dom": "19.0.3",
-    "postcss": "8.5.1",
-    "tailwindcss": "4.0.3",
-    "eslint-config-next": "15.1.6"
+    "postcss": "8.5.2",
+    "tailwindcss": "4.0.6",
+    "eslint-config-next": "15.1.7"
   }
 }
