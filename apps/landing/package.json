@@ -20,10 +20,11 @@
   },
   "devDependencies": {
     "@monorepo/eslint-config": "workspace:*",
+    "@tailwindcss/postcss": "4.0.6",
     "@types/react": "19.0.8",
     "@types/react-dom": "19.0.3",
+    "eslint-config-next": "15.1.7",
     "postcss": "8.5.2",
-    "tailwindcss": "4.0.6",
-    "eslint-config-next": "15.1.7"
+    "tailwindcss": "4.0.6"
   }
 }
