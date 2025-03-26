@@ -12,14 +12,14 @@
     "lint": "bun tsc && next lint && biome format ./src"
   },
   "dependencies": {
-    "@apollo/client": "3.13.1",
+    "@apollo/client": "3.13.5",
     "@radix-ui/react-slot": "1.1.2",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
     "gql.tada": "1.8.10",
-    "lucide-react": "0.477.0",
-    "next": "15.2.1",
-    "nuqs": "2.4.0",
+    "lucide-react": "0.484.0",
+    "next": "15.2.4",
+    "nuqs": "2.4.1",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "sharp": "0.33.5",
@@ -29,12 +29,12 @@
   },
   "devDependencies": {
     "@monorepo/eslint-config": "workspace:*",
-    "@tailwindcss/postcss": "4.0.9",
-    "@types/react": "19.0.10",
+    "@tailwindcss/postcss": "4.0.16",
+    "@types/react": "19.0.12",
     "@types/react-dom": "19.0.4",
-    "autoprefixer": "10.4.20",
+    "autoprefixer": "10.4.21",
     "env-cmd": "10.1.0",
     "postcss": "8.5.3",
-    "tailwindcss": "4.0.9"
+    "tailwindcss": "4.0.16"
   }
 }
