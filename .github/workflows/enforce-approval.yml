@@ -1,0 +1,70 @@
+name: Enforce CODEOWNERS Approval
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  require-codeowners-approval:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get PR files
+        id: files
+        uses: tj-actions/changed-files@v44
+        with:
+          separator: ","
+
+      - name: Load CODEOWNERS
+        id: codeowners
+        run: |
+          if [ ! -f .github/CODEOWNERS ]; then
+            echo "No CODEOWNERS file found."
+            exit 1
+          fi
+          echo "Loading CODEOWNERS"
+        shell: bash
+
+      - name: Check approval from CODEOWNERS
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const path = '.github/CODEOWNERS';
+
+            const changedFiles = '${{ steps.files.outputs.all_changed_files }}'.split(',');
+            const codeownersRaw = fs.readFileSync(path, 'utf8');
+            const lines = codeownersRaw.split('\n').filter(l => l.trim() && !l.startsWith('#'));
+
+            const codeownersMap = {};
+            for (const line of lines) {
+              const [pattern, ...owners] = line.trim().split(/\s+/);
+              codeownersMap[pattern] = owners.map(o => o.replace(/^@/, ''));
+            }
+
+            const ownersRequired = new Set();
+            for (const file of changedFiles) {
+              for (const pattern in codeownersMap) {
+                if (file.startsWith(pattern.replace('*', ''))) {
+                  codeownersMap[pattern].forEach(owner => ownersRequired.add(owner));
+                }
+              }
+            }
+
+            const reviews = await github.rest.pulls.listReviews({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+            });
+
+            const approvedBy = reviews.data
+              .filter(r => r.state === 'APPROVED')
+              .map(r => r.user.login);
+
+            const isApproved = [...ownersRequired].some(owner => approvedBy.includes(owner));
+
+            if (!isApproved) {
+              core.setFailed(`PR must be approved by at least one CODEOWNER: ${[...ownersRequired].join(', ')}`);
+            } else {
+              console.log(`Approved by at least one CODEOWNER ✅`);
+            }
