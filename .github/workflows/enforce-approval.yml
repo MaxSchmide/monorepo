@@ -1,82 +1,80 @@
-name: Enforce PR Approval Policy
+name: Enforce CODEOWNER Approval and Lock PR
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
+    types: [opened, ready_for_review, synchronize, reopened]
 
 jobs:
-  check-approvals:
+  block-unapproved:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+
     steps:
-      - name: Checkout repo
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Bun
-        uses: oven-sh/setup-bun@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Get changed files
+        id: files
+        uses: tj-actions/changed-files@v44
         with:
-          node-version: '22.10.0'
+          separator: ','
 
-      - name: Install dependencies
-        run: bun install
-        
-      - name: Enforce approval policy
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          node <<'EOF'
-          const yaml = require('js-yaml');
-          const fs = require('fs');
-          const https = require('https');
+      - name: Check CODEOWNER approvals and mark draft if needed
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const changedFiles = '${{ steps.files.outputs.all_changed_files }}'.split(',');
 
-          const config = yaml.load(fs.readFileSync('.policy-bot.yml', 'utf8'));
-          const requiredUsers = config.approval_rules[0].reviewers.users || [];
-          const requiredCount = config.approval_rules[0].count || 1;
+            const prNumber = context.payload.pull_request.number;
+            const prUrl = context.payload.pull_request.url;
+            const codeownersPath = '.github/CODEOWNERS';
 
-          const options = {
-            hostname: 'api.github.com',
-            path: process.env.GITHUB_EVENT_PATH
-              ? JSON.parse(fs.readFileSync(process.env.GITHUB_EVENT_PATH)).pull_request.url + '/reviews'
-              : '',
-            headers: {
-              'User-Agent': 'policy-bot-action',
-              Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-              Accept: 'application/vnd.github+json'
+            if (!fs.existsSync(codeownersPath)) {
+              core.setFailed('CODEOWNERS file not found.');
+              return;
             }
-          };
 
-          if (!options.path) {
-            console.error("Couldn't determine PR review URL");
-            process.exit(1);
-          }
+            const lines = fs.readFileSync(codeownersPath, 'utf8')
+              .split('\n').filter(l => l.trim() && !l.startsWith('#'));
 
-          https.get(options, (res) => {
-            let data = '';
-            res.on('data', chunk => data += chunk);
-            res.on('end', () => {
-              const reviews = JSON.parse(data);
-              const approvedUsers = new Set();
-
-              for (const review of reviews.reverse()) {
-                if (review.state === 'APPROVED') {
-                  approvedUsers.add(review.user.login);
-                } else if (review.state === 'CHANGES_REQUESTED') {
-                  approvedUsers.delete(review.user.login);
+            const ownersSet = new Set();
+            for (const file of changedFiles) {
+              for (const line of lines) {
+                const [pattern, ...owners] = line.trim().split(/\s+/);
+                const regex = new RegExp('^' + pattern.replace('*', '.*'));
+                if (regex.test(file)) {
+                  owners.forEach(o => ownersSet.add(o.replace(/^@/, '')));
                 }
               }
+            }
 
-              const approvedMatches = requiredUsers.filter(user => approvedUsers.has(user));
-              if (approvedMatches.length >= requiredCount) {
-                console.log(`✅ Approved by: ${approvedMatches.join(', ')}`);
-              } else {
-                console.error(`❌ Missing required approvals from: ${requiredUsers.join(', ')}`);
-                process.exit(1);
-              }
+            const reviews = await github.rest.pulls.listReviews({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber,
             });
-          }).on('error', (e) => {
-            console.error(e);
-            process.exit(1);
-          });
-          EOF
+
+            const approved = new Set();
+            reviews.data.reverse().forEach(r => {
+              if (r.state === 'APPROVED') approved.add(r.user.login);
+              if (r.state === 'CHANGES_REQUESTED') approved.delete(r.user.login);
+            });
+
+            const requiredOwners = [...ownersSet];
+            const hasApproval = requiredOwners.some(o => approved.has(o));
+
+            if (!hasApproval) {
+              console.log(`Missing CODEOWNER approval, marking PR as draft.`);
+              await github.rest.pulls.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: prNumber,
+                draft: true
+              });
+            } else {
+              console.log('Approved by CODEOWNER ✅');
+            }
