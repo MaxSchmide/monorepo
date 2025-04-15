@@ -31,7 +31,7 @@ jobs:
           const fs = require('fs');
           const https = require('https');
 
-          const config = yaml.load(fs.readFileSync('.policy-bot.yaml', 'utf8'));
+          const config = yaml.load(fs.readFileSync('.policy-bot.yml', 'utf8'));
           const requiredUsers = config.approval_rules[0].reviewers.users || [];
           const requiredCount = config.approval_rules[0].count || 1;
 
