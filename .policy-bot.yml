@@ -1,0 +1,10 @@
+version: 1
+approval_rules:
+  - name: "Require CODEOWNER approval"
+    reviewers:
+      users:
+        - MaxSchmide
+    count: 1
+options:
+  request_review: true
+  ignore_draft: true
