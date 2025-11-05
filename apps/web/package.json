@@ -12,29 +12,29 @@
     "lint": "bun tsc && next lint && biome format ./src"
   },
   "dependencies": {
-    "@apollo/client": "3.13.9",
-    "@radix-ui/react-slot": "1.2.3",
+    "@apollo/client": "4.0.9",
+    "@radix-ui/react-slot": "1.2.4",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
     "gql.tada": "1.8.13",
-    "lucide-react": "0.539.0",
-    "next": "15.4.6",
-    "nuqs": "2.4.3",
-    "react": "19.1.1",
-    "react-dom": "19.1.1",
-    "sharp": "0.34.3",
+    "lucide-react": "0.552.0",
+    "next": "16.0.1",
+    "nuqs": "2.7.2",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "sharp": "0.34.4",
     "tailwind-merge": "3.3.1",
     "tailwindcss-animate": "1.0.7",
-    "zod": "4.0.17"
+    "zod": "4.1.12"
   },
   "devDependencies": {
     "@monorepo/eslint-config": "workspace:*",
-    "@tailwindcss/postcss": "4.1.11",
-    "@types/react": "19.1.10",
-    "@types/react-dom": "19.1.7",
+    "@tailwindcss/postcss": "4.1.16",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
     "autoprefixer": "10.4.21",
-    "env-cmd": "10.1.0",
+    "env-cmd": "11.0.0",
     "postcss": "8.5.6",
-    "tailwindcss": "4.1.11"
+    "tailwindcss": "4.1.16"
   }
 }
